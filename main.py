@@ -1,3 +1,6 @@
+import random
+import time
+
 # Sorts
 # Quick Sort
 def particiona(V,inicio,final):
@@ -77,3 +80,13 @@ def shellSort(nums):
                 nums[j] = c
             h = int(h/2.2)
     return nums
+
+# Definição dos tamanhos
+tamanhos = [100, 1000, 10000]
+
+# for
+for tamanho in tamanhos:
+    # Criação das ordens dentro do for
+    array_cresc = list(range(tamanho))
+    array_decresc = list(range(tamanho,0,-1))
+    array_random = random.sample(range(tamanho*10),tamanho)
