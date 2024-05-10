@@ -1,5 +1,6 @@
 import random
 import time
+import matplotlib.pyplot as plt
 
 # Sorts
 # Quick Sort
@@ -157,4 +158,41 @@ for tamanho in tamanhos:
     temposCrescShell.append(tempo_shell_cresc)
     temposDecrescShell.append(tempo_shell_decresc)
     temposRandomShell.append(tempo_shell_random)
-    
+
+    import matplotlib.pyplot as plt
+
+# Plotando gráficos para cada condição
+fig, axs = plt.subplots(3, figsize=(10, 18))
+
+# Plotando gráfico para a condição crescente
+axs[0].plot(tamanhos, temposCrescQuick, marker='o', label='Quick Sort')
+axs[0].plot(tamanhos, temposCrescMerge, marker='o', label='Merge Sort')
+axs[0].plot(tamanhos, temposCrescShell, marker='o', label='Shell Sort')
+axs[0].set_title('Desempenho - Ordem Crescente')
+axs[0].set_xlabel('Tamanho do Array')
+axs[0].set_ylabel('Tempo (s)')
+axs[0].legend()
+axs[0].grid(True)
+
+# Plotando gráfico para a condição decrescente
+axs[1].plot(tamanhos, temposDecrescQuick, marker='o', label='Quick Sort')
+axs[1].plot(tamanhos, temposDecrescMerge, marker='o', label='Merge Sort')
+axs[1].plot(tamanhos, temposDecrescShell, marker='o', label='Shell Sort')
+axs[1].set_title('Desempenho - Ordem Decrescente')
+axs[1].set_xlabel('Tamanho do Array')
+axs[1].set_ylabel('Tempo (s)')
+axs[1].legend()
+axs[1].grid(True)
+
+# Plotando gráfico para a condição aleatória
+axs[2].plot(tamanhos, temposRandomQuick, marker='o', label='Quick Sort')
+axs[2].plot(tamanhos, temposRandomMerge, marker='o', label='Merge Sort')
+axs[2].plot(tamanhos, temposRandomShell, marker='o', label='Shell Sort')
+axs[2].set_title('Desempenho - Ordem Aleatória')
+axs[2].set_xlabel('Tamanho do Array')
+axs[2].set_ylabel('Tempo (s)')
+axs[2].legend()
+axs[2].grid(True)
+
+plt.subplots_adjust(top=0.95, bottom=0.1, left=0.1, right=0.95, hspace=0.5, wspace=0.5)
+plt.show()
