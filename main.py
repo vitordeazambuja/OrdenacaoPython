@@ -3,21 +3,20 @@ import time
 
 # Sorts
 # Quick Sort
-def particiona(V,inicio,final):
+def particiona(V, inicio, final):
     esq = inicio + 1
     dir = final
     pivo = V[inicio]
-    while(esq < dir):
-        while(esq <= final and V[esq] <= pivo):
+    while esq <= dir:
+        while esq <= final and V[esq] <= pivo:
             esq = esq + 1
-        while(dir >= 0 and V[dir] > pivo):
+        while dir >= inicio and V[dir] > pivo:
             dir = dir - 1
-        if(esq <= dir):
-            aux = V[esq]
-            V[esq] = V[dir]
-            V[dir] = aux
-    V[inicio] = V[dir]
-    V[dir] = pivo
+        if esq <= dir:
+            V[esq], V[dir] = V[dir], V[esq]
+            esq = esq + 1
+            dir = dir - 1
+    V[inicio], V[dir] = V[dir], V[inicio]
     return dir
 
 def quickSort(V,inicio,fim):
@@ -65,6 +64,7 @@ def mergeSort(V, inicio, fim):
         mergeSort(V, inicio, meio)
         mergeSort(V, meio + 1, fim)
         merge(V, inicio, meio, fim)
+    return V
 
 # Shell Sort
 def shellSort(nums):
