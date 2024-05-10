@@ -70,15 +70,19 @@ def mergeSort(V, inicio, fim):
 def shellSort(nums):
     h = 1
     n = len(nums)
+    
+    while h < n / 3:
+        h = h * 3 + 1
+
     while h > 0:
         for i in range(h, n):
             c = nums[i]
             j = i
-            while j >= h  and c < nums[j-h]:
-                nums[j] = nums[j-h]
+            while j >= h and c < nums[j - h]:
+                nums[j] = nums[j - h]
                 j = j - h
-                nums[j] = c
-            h = int(h/2.2)
+            nums[j] = c
+        h = int(h / 2.2)
     return nums
 
 # Definição dos tamanhos
