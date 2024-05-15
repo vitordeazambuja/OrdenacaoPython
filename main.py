@@ -159,8 +159,6 @@ for tamanho in tamanhos:
     temposDecrescShell.append(tempo_shell_decresc)
     temposRandomShell.append(tempo_shell_random)
 
-    import matplotlib.pyplot as plt
-
 # Plotando gráficos para cada condição
 fig, axs = plt.subplots(3, figsize=(10, 18))
 
