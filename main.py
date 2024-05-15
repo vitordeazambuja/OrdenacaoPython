@@ -90,8 +90,9 @@ def shellSort(nums):
         h = int(h / 2.2)
     return nums
 
-# Definição dos tamanhos e das arrays de tempos
+# Definição dos tamanhos e da array de ordens
 tamanhos = [100, 1000, 10000]
+ordens = ["cresc", "decresc", "random"]
 
 # Tempos do Quick Sort
 temposCrescQuick = []
@@ -128,6 +129,19 @@ def medirTempoShell(array):
     tempo_final = time.time()
     return tempo_final - tempo_inicial
 
+# Funções de ordenação
+def ordenarQuick(array):
+    ordenado = quickSort(array, 0, len(array)-1)
+    return ordenado
+
+def ordenarMerge(array):
+    ordenado = mergeSort(array, 0, len(array)-1)
+    return ordenado
+
+def ordenarShell(array):
+    ordenado = shellSort(array)
+    return ordenado
+
 # for
 for tamanho in tamanhos:
     # Criação das ordens dentro do for
@@ -158,6 +172,44 @@ for tamanho in tamanhos:
     temposCrescShell.append(tempo_shell_cresc)
     temposDecrescShell.append(tempo_shell_decresc)
     temposRandomShell.append(tempo_shell_random)
+
+    # for iterando pelas ordens
+    for ordem in ordens:
+        if ordem == "cresc":
+            numeros = list(range(tamanho))
+        elif ordem == "decresc":
+            numeros = list(range(tamanho,0,-1))
+        elif ordem == "random":
+            numeros = random.sample(range(tamanho*10), tamanho)
+
+        # Escreve os arquivos
+        with open(f"{tamanho}{ordem}.txt", "w") as f:
+            for numero in numeros:
+                f.write(f"{numero}\n")
+        
+        # Lê os arquivos
+        with open(f"{tamanho}{ordem}.txt", "r") as f:
+            numeros = [int(line.strip()) for line in f]
+        
+        # Ordena os arquivos de quick sort e cria os arquivos
+        ordenarQuick(numeros)
+        with open(f"{tamanho}{ordem}_ordenadoQuick.txt", "w") as f:
+            for numero in numeros:
+                f.write(f"{numero}\n")
+        
+        # Ordena os arquivos de merge sort e cria os arquivos
+        ordenarMerge(numeros)
+        with open(f"{tamanho}{ordem}_ordenadoMerge.txt", "w") as f:
+            for numero in numeros:
+                f.write(f"{numero}\n")
+
+        # Ordena os arquivos de shell sort e cria os arquivos
+        ordenarShell(numeros)
+        with open(f"{tamanho}{ordem}_ordenadoShell.txt", "w") as f:
+            for numero in numeros:
+                f.write(f"{numero}\n")
+
+
 
 # Plotando gráficos para cada condição
 fig, axs = plt.subplots(3, figsize=(10, 18))
