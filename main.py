@@ -90,6 +90,38 @@ def shellSort(nums):
         h = int(h / 2.2)
     return nums
 
+# Heap Sort
+def ordenaHeap(e,d,vetor):
+    i = e
+    j = 2 * i
+    naoachou = 1
+    x = vetor[i-1]
+    while j <= d and naoachou == 1:
+        if (j < d):
+            if (vetor[j - 1] < vetor[j]):
+                j += 1
+        if (x < vetor[j-1]):
+            vetor[i - 1] = vetor[j - 1]
+            i = j
+            j = 2 * i
+        else:
+            naoachou = 0
+    vetor[i - 1] = x
+
+def heapSort(vetor):
+    d = len(vetor)
+    e = int(d/2)
+    while e > 0:
+        ordenaHeap(e,d,vetor)
+        e -= 1
+    while d >= 1:
+        x = vetor[0]
+        vetor[0] = vetor[d - 1]
+        vetor[d - 1] = x
+        d -= 1
+        ordenaHeap(1,d,vetor)
+    return vetor
+
 # Definição dos tamanhos e da array de ordens
 tamanhos = [100, 1000, 10000]
 ordens = ["cresc", "decresc", "random"]
@@ -109,6 +141,11 @@ temposCrescShell = []
 temposDecrescShell = []
 temposRandomShell = []
 
+# Tempos do Heap Sort
+temposCrescHeap = []
+temposDecrescHeap = []
+temposRandomHeap = []
+
 
 # Funções de medir o tempo
 def medirTempoQuick(array):
@@ -126,6 +163,12 @@ def medirTempoMerge(array):
 def medirTempoShell(array):
     tempo_inicial = time.time()
     ordenado = shellSort(array)
+    tempo_final = time.time()
+    return tempo_final - tempo_inicial
+
+def medirTempoHeap(array):
+    tempo_inicial = time.time()
+    ordenado = heapSort(array)
     tempo_final = time.time()
     return tempo_final - tempo_inicial
 
@@ -159,6 +202,14 @@ for tamanho in tamanhos:
     temposCrescShell.append(tempo_shell_cresc)
     temposDecrescShell.append(tempo_shell_decresc)
     temposRandomShell.append(tempo_shell_random)
+    # Medição do tempo do heap sort
+    tempo_heap_cresc = medirTempoHeap(array_cresc)
+    tempo_heap_decresc = medirTempoHeap(array_decresc)
+    tempo_heap_random = medirTempoHeap(array_random)
+    # Append na array de tempos do heap sort
+    temposCrescHeap.append(tempo_heap_cresc)
+    temposDecrescHeap.append(tempo_heap_decresc)
+    temposRandomHeap.append(tempo_heap_random)
 
 # Plotando gráficos para cada condição
 fig, axs = plt.subplots(3, figsize=(10, 18))
@@ -167,6 +218,7 @@ fig, axs = plt.subplots(3, figsize=(10, 18))
 axs[0].plot(tamanhos, temposCrescQuick, marker='o', label='Quick Sort')
 axs[0].plot(tamanhos, temposCrescMerge, marker='o', label='Merge Sort')
 axs[0].plot(tamanhos, temposCrescShell, marker='o', label='Shell Sort')
+axs[0].plot(tamanhos, temposCrescHeap, marker='o', label='Heap Sort')
 axs[0].set_title('Desempenho - Ordem Crescente')
 axs[0].set_xlabel('Tamanho do Array')
 axs[0].set_ylabel('Tempo (s)')
@@ -177,6 +229,7 @@ axs[0].grid(True)
 axs[1].plot(tamanhos, temposDecrescQuick, marker='o', label='Quick Sort')
 axs[1].plot(tamanhos, temposDecrescMerge, marker='o', label='Merge Sort')
 axs[1].plot(tamanhos, temposDecrescShell, marker='o', label='Shell Sort')
+axs[1].plot(tamanhos, temposDecrescHeap, marker='o', label='Heap Sort')
 axs[1].set_title('Desempenho - Ordem Decrescente')
 axs[1].set_xlabel('Tamanho do Array')
 axs[1].set_ylabel('Tempo (s)')
@@ -187,11 +240,13 @@ axs[1].grid(True)
 axs[2].plot(tamanhos, temposRandomQuick, marker='o', label='Quick Sort')
 axs[2].plot(tamanhos, temposRandomMerge, marker='o', label='Merge Sort')
 axs[2].plot(tamanhos, temposRandomShell, marker='o', label='Shell Sort')
+axs[2].plot(tamanhos, temposRandomHeap, marker='o', label='Heap Sort')
 axs[2].set_title('Desempenho - Ordem Aleatória')
 axs[2].set_xlabel('Tamanho do Array')
 axs[2].set_ylabel('Tempo (s)')
 axs[2].legend()
 axs[2].grid(True)
+
 
 plt.subplots_adjust(top=0.95, bottom=0.1, left=0.1, right=0.95, hspace=0.5, wspace=0.5)
 plt.show()
