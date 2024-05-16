@@ -122,9 +122,8 @@ def heapSort(vetor):
         ordenaHeap(1,d,vetor)
     return vetor
 
-# Definição dos tamanhos e da array de ordens
+# Definição dos tamanhos
 tamanhos = [100, 1000, 10000]
-ordens = ["cresc", "decresc", "random"]
 
 # Tempos do Quick Sort
 temposCrescQuick = []
